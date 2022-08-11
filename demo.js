@@ -1,4 +1,6 @@
-let array = [1, 4, 4, 5, 6, 4, 5, 5, 10, 0, 0, 1, 7, 3, 6, 4, 10, 0, 2, 8]
+let array = [1, 1, 2, 6, 10, 0, 4,
+    3, 9, 1, 10, 0, 8, 0,
+    7, 3, 2, 3, 10, 0]
 let matrix = []
 for (let i = 0; i < 20; i += 2) { matrix.push(array.slice(i, i + 2)) }
 console.log(matrix)
