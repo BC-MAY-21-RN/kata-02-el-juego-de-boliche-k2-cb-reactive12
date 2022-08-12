@@ -1,4 +1,4 @@
-export default class Bowling {
+class Bowling {
 
     constructor() {
         this._rolls = [];
@@ -11,14 +11,11 @@ export default class Bowling {
         }
         //this-_lastRoll ejemplo del ultimo cuadrante, index ( 18 y 19) , elemento 19 y 20
         this._lastRoll();
-        this._getScore();
-        this._getFinalScore();
-        // console.log(this._rolls.length);
-        // this._table();
-        // return [this._rolls, this._score];
-        return [this._rolls, this._score];
+        this._getScore(this._rolls);
+        //this._getFinalScore(this._rolls);
+        this._table();
 
-
+        return this._score;
     }
 
     _lastRoll() {
@@ -45,29 +42,27 @@ export default class Bowling {
         this._rolls.push(this._generateSecondRoll());
     }
 
-
-
-
-
-    _getScore() {
+    _getScore(rolls) {
         let s = 0;
         for (let i = 0; i < 18; i++) {
-            if (this._rolls[i] == 10 && i != 18) {
-                s += 10 + this._rolls[i + 2] + this._rolls[i + 3];
+            if (rolls[i] == 10 && i != 18) {
+                s += 10 + rolls[i + 2] + rolls[i + 3];
             }
 
-            else if ((this._rolls[i] + this._rolls[i + 1]) == 10) {
-                s = s + 10 + this._rolls[i + 2];
+            else if ((rolls[i] + rolls[i + 1]) == 10) {
+                s = s + 10 + rolls[i + 2];
             }
             else {
-                s = s + this._rolls[i] + this._rolls[i + 1];
+                s = s + rolls[i] + rolls[i + 1];
             }
             this._score.push(s);
             i++;
         }
+        this._getFinalScore(rolls);
+        return this._score;
     }
 
-    _getFinalScore() {
+    /*_getFinalScore() {
         let s = this._score[this._score.length - 1];
         if (this._rolls[18] == 10) {
             s += 10 + this._rolls[19] + this._rolls[20];
@@ -77,7 +72,15 @@ export default class Bowling {
         }
         else {
             s += this._rolls[18] + this._rolls[19];
-        }
+        }   
+        this._score.push(s);
+    } */
+
+    _getFinalScore(rolls) {
+        let s = this._score[this._score.length - 1];
+        (rolls[18] == 10) ? s += 10 + rolls[19] + rolls[20] :
+            ((rolls[18] + rolls[19]) == 10) ? s += 10 + rolls[20] :
+                s += rolls[18] + rolls[19]
         this._score.push(s);
     }
 
@@ -110,3 +113,7 @@ export default class Bowling {
         }
     }
 }
+let b = new Bowling();
+b.game();
+
+module.exports = { Bowling };
